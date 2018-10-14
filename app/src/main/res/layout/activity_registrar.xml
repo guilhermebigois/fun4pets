@@ -1,0 +1,224 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center_horizontal"
+    android:orientation="vertical"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    tools:context=".activity.RegistrarActivity">
+    
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="NOME" />
+            
+            <EditText
+                android:id="@+id/registrar_nome"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="Augusto Coutinho"
+                android:inputType="textPersonName" />
+            
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="SENHA" />
+            
+            
+            <EditText
+                android:id="@+id/registrar_senha"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="Senha maior que quatro dígitos"
+                android:inputType="textPassword" />
+            
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="CPF" />
+            
+            <EditText
+                android:id="@+id/registrar_cpf"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="425.055.598-50"
+                android:inputType="numberSigned" />
+            
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="SEXO" />
+            
+            <RadioGroup
+                android:id="@+id/registrar_sexo"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+                
+                <RadioButton
+                    android:id="@+id/registrar_rdo_masc"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Masculino"
+                    tools:layout_editor_absoluteX="0dp"
+                    tools:layout_editor_absoluteY="0dp" />
+                
+                <RadioButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Feminino" />
+            
+            </RadioGroup>
+            
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="8dp"
+                android:layout_weight="1"
+                tools:layout_editor_absoluteY="97dp" />
+            
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="DATA DE NASCIMENTO" />
+            
+            <EditText
+                android:id="@+id/registrar_data"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="Dois toques par abrir o calendário"
+                android:inputType="date"
+                tools:text="@tools:sample/date/ddmmyy" />
+            
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="E-MAIL" />
+            
+            <EditText
+                android:id="@+id/registrar_email"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="coutinho.augusto@yahoo.com"
+                android:inputType="textEmailAddress"
+                tools:ignore="LabelFor" />
+            
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="TELEFONE" />
+            
+            <EditText
+                android:id="@+id/registrar_telefone"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="(11) 98786-5721"
+                android:inputType="number" />
+            
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="CEP" />
+            
+            <EditText
+                android:id="@+id/registrar_cep"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="06757-301"
+                android:inputType="number" />
+            
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="ENDEREÇO" />
+            
+            <EditText
+                android:id="@+id/registrar_endereco"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="R. Eulálio Gomes, 22"
+                android:inputType="textPersonName" />
+            
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="COMPLEMENTO" />
+            
+            <EditText
+                android:id="@+id/registrar_complemento"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="Blc. B - Apto. 901"
+                android:inputType="textPersonName" />
+            
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="BAIRRO" />
+            
+            <EditText
+                android:id="@+id/registrar_bairro"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="Cidade Marajoara"
+                android:inputType="textPersonName" />
+            
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="MUNICÍPIO" />
+            
+            <EditText
+                android:id="@+id/registrar_municipio"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="Alphaville"
+                android:inputType="textPersonName" />
+            
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="ESTADO" />
+            
+            <Spinner
+                android:id="@+id/registrar_estado"
+                android:layout_width="match_parent"
+                android:layout_height="40dp" />
+            
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="30dp" />
+            
+            <Button
+                android:id="@+id/registrar_btn_salvar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="SALVAR" />
+        
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>
