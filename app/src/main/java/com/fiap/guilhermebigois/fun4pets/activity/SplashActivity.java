@@ -6,6 +6,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 
+import com.fiap.guilhermebigois.fun4pets.PrincipalActivity;
 import com.fiap.guilhermebigois.fun4pets.R;
 
 public class SplashActivity extends Activity {
@@ -22,8 +23,8 @@ public class SplashActivity extends Activity {
                 Intent intent;
                 
                 if (checkSharedPreferences()) {
-                    //intent = new Intent(SplashActivity.this, MainActivity.class);
-                    //startActivity(intent);
+                    intent = new Intent(SplashActivity.this, PrincipalActivity.class);
+                    startActivity(intent);
                 } else {
                     intent = new Intent(SplashActivity.this, LoginActivity.class);
                     startActivity(intent);

@@ -1,7 +1,9 @@
-package com.fiap.guilhermebigois.fun4pets;
+package com.fiap.guilhermebigois.fun4pets.activity;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+
+import com.fiap.guilhermebigois.fun4pets.R;
 
 public class PerfilActivity extends AppCompatActivity {
     
