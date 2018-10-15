@@ -81,7 +81,7 @@ public class AuthService {
         preferences = context.getSharedPreferences("user_preferences", MODE_PRIVATE);
         
         SharedPreferences.Editor editor = preferences.edit();
-        editor.putBoolean("ativo", false);
+        editor.putBoolean("ativo", change);
         editor.commit();
         
     }

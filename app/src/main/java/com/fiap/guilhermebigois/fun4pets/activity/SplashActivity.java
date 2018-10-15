@@ -6,7 +6,6 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 
-import com.fiap.guilhermebigois.fun4pets.PrincipalActivity;
 import com.fiap.guilhermebigois.fun4pets.R;
 
 public class SplashActivity extends Activity {

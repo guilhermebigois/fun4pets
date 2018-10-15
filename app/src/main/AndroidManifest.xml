@@ -34,10 +34,9 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".PrincipalActivity"
+            android:name=".activity.PrincipalActivity"
             android:label="Home"
             android:theme="@style/AppTheme.NoActionBar">
         </activity>
     </application>
-
 </manifest>

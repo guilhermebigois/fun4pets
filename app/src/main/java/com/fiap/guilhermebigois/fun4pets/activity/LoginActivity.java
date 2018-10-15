@@ -17,7 +17,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.fiap.guilhermebigois.fun4pets.PrincipalActivity;
 import com.fiap.guilhermebigois.fun4pets.R;
 import com.fiap.guilhermebigois.fun4pets.dao.StaticList;
 import com.fiap.guilhermebigois.fun4pets.model.Dono;
@@ -195,6 +194,8 @@ public class LoginActivity extends AppCompatActivity {
                 
                 Dono dono = new Dono(cpf, nome, sexo, dataFormatada, email, telefone, endereco, bairro, municipio, estado, cep, senha, complemento);
                 StaticList.AccessData.setDono(dono);
+
+                AuthService.changeSharedPreferences(true, getApplicationContext());
                 
                 Intent intent = new Intent(LoginActivity.this, PrincipalActivity.class);
                 startActivity(intent);
