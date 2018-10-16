@@ -2,8 +2,12 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
-        android:id="@+id/action_settings"
+        android:id="@+id/action_excluir"
+        android:icon="@drawable/ic_sentiment_very_dissatisfied_black_24dp"
+        android:title="Deletar conta" />
+    <item
+        android:id="@+id/action_sair"
         android:orderInCategory="100"
-        android:title="@string/action_settings"
+        android:title="Sair"
         app:showAsAction="never" />
 </menu>

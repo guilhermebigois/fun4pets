@@ -67,15 +67,16 @@ public class PrincipalActivity extends AppCompatActivity
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
 
-        if (id == R.id.action_settings) {
+        if (id == R.id.action_sair) {
             Intent intent = new Intent(PrincipalActivity.this, LoginActivity.class);
             startActivity(intent);
 
             AuthService.changeSharedPreferences(false, getApplicationContext());
-
             this.finish();
 
             return true;
+        } else if (id == R.id.action_excluir) {
+            // TODO ACTION EXCLUIR CONTA
         }
 
         return super.onOptionsItemSelected(item);
@@ -85,18 +86,15 @@ public class PrincipalActivity extends AppCompatActivity
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
         int id = item.getItemId();
+        Intent intent;
 
-        if (id == R.id.nav_camera) {
-        } else if (id == R.id.nav_gallery) {
-
-        } else if (id == R.id.nav_slideshow) {
-
-        } else if (id == R.id.nav_manage) {
-
-        } else if (id == R.id.nav_share) {
-
-        } else if (id == R.id.nav_send) {
-
+        if (id == R.id.nav_perfil) {
+            intent = new Intent(PrincipalActivity.this, DadosActivity.class);
+            startActivity(intent);
+        } else if (id == R.id.nav_animais) {
+            // TODO ABRIR ANIMAIS
+        } else if (id == R.id.nav_inscritos) {
+            // TODO ABRIR INSCRITOS
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

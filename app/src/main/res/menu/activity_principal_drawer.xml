@@ -14,8 +14,7 @@
             android:title="Meus animais" />
         <item
             android:id="@+id/nav_inscritos"
-            android:icon="@drawable/ic_"
+            android:icon="@drawable/ic_prize_badge_with_paw_print"
             android:title="Inscrições" />
     </group>
-
 </menu>
