@@ -42,6 +42,8 @@
             android:name=".activity.EsperaActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:theme="@style/FullscreenTheme" />
+        <activity android:name=".activity.AnimalActivity" />
+        <activity android:name=".activity.AddAnimalActivity"></activity>
     </application>
 
 </manifest>

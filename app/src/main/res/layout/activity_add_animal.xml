@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center_horizontal"
+    android:orientation="vertical"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    tools:context=".activity.AddAnimalActivity">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="NOME" />
+
+            <EditText
+                android:id="@+id/animal_nome"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="Meg"
+                android:inputType="textPersonName" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="SEXO" />
+
+            <RadioGroup
+                android:id="@+id/animal_sexo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <RadioButton
+                    android:id="@+id/animal_rdo_masc"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Masculino"
+                    tools:layout_editor_absoluteX="0dp"
+                    tools:layout_editor_absoluteY="0dp" />
+
+                <RadioButton
+                    android:id="@+id/animal_rdo_fem"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Feminino" />
+
+            </RadioGroup>
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="8dp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="DATA DE NASCIMENTO" />
+
+            <EditText
+                android:id="@+id/animal_data"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="Dois toques par abrir o calendário"
+                android:inputType="date"
+                tools:text="@tools:sample/date/ddmmyy" />
+
+            <TextView
+                android:id="@+id/textView2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="ESPÉCIE" />
+
+            <EditText
+                android:id="@+id/animal_especie"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="Cachorro"
+                android:inputType="textPersonName" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="RAÇA" />
+
+            <EditText
+                android:id="@+id/animal_raca"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="Bulldog"
+                android:inputType="textPersonName" />
+
+            <TextView
+                android:id="@+id/textView4"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="COLORAÇÃO" />
+
+            <EditText
+                android:id="@+id/animal_coloracao"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="Marrom"
+                android:inputType="textPersonName" />
+        </LinearLayout>
+    </ScrollView>
+
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="16dp" />
+
+    <Button
+        android:id="@+id/animal_btn_salvar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="SALVAR" />
+</LinearLayout>

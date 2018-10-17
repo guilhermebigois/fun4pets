@@ -92,8 +92,8 @@ public class PrincipalActivity extends AppCompatActivity
             intent = new Intent(PrincipalActivity.this, DadosActivity.class);
             startActivity(intent);
         } else if (id == R.id.nav_animais) {
-            //intent = new Intent(PrincipalActivity.this, AnimalActivity.class);
-            //startActivity(intent);
+            intent = new Intent(PrincipalActivity.this, AnimalActivity.class);
+            startActivity(intent);
         } else if (id == R.id.nav_inscritos) {
             //intent = new Intent(PrincipalActivity.this, InscritoActivity.class);
             //startActivity(intent);
