@@ -28,18 +28,18 @@ public class AuthService {
     private static final String USERNAME = "guilhermebigois@outlook.com";
     private static final String PASSWORD = "Berna021" + SECURITY_KEY;
     private static final String GRANT_TYPE = "password";
-    
+
     public static String getToken() throws Exception {
         // CLIENTE HTTP
         HttpClient client = new DefaultHttpClient();
-        
+
         // URL DE REQUISIÇÃO
         HttpPost post = new HttpPost(SALESFORCE_AUTH_URL);
-        
+
         // CABEÇALHO
         post.setHeader("Content-Type", "application/json");
         post.setHeader("Content-Type", "application/x-www-form-urlencoded; charset=UTF-8");
-        
+
         // PARÂMETROS
         List<NameValuePair> urlParameters = new ArrayList<NameValuePair>();
         urlParameters.add(new BasicNameValuePair("client_id", CLIENT_ID));
@@ -48,41 +48,41 @@ public class AuthService {
         urlParameters.add(new BasicNameValuePair("grant_type", GRANT_TYPE));
         urlParameters.add(new BasicNameValuePair("username", USERNAME));
         urlParameters.add(new BasicNameValuePair("password", PASSWORD));
-        
+
         // INCORPORA OS PARÂMETROS
         post.setEntity(new UrlEncodedFormEntity(urlParameters));
-        
+
         // RESPOSTA DO POST
         HttpResponse response = client.execute(post);
-        
+
         // FAZ O TRAMPO DE LER TUDO
         BufferedReader rd = new BufferedReader(
                 new InputStreamReader(response.getEntity().getContent()));
-        
+
         // BUFFERIZA A LINHA
         StringBuffer result = new StringBuffer();
         String line = "";
-        
+
         // WHILE DOIDO ATÉ PREENCHER A LINHA
         while ((line = rd.readLine()) != null) {
             result.append(line);
         }
-        
+
         // DÁ A LUZ AO TOKEN
         JSONObject jsonObject = new JSONObject(result.toString());
         String baerer = jsonObject.getString("access_token");
-        
+
         return baerer;
     }
-    
+
     public static void changeSharedPreferences(Boolean change, String email, Context context) {
         SharedPreferences preferences;
         preferences = context.getSharedPreferences("user_preferences", MODE_PRIVATE);
-        
+
         SharedPreferences.Editor editor = preferences.edit();
         editor.putBoolean("ativo", change);
         editor.putString("email", email);
         editor.commit();
-        
+
     }
 }

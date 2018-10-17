@@ -88,14 +88,15 @@ public class PrincipalActivity extends AppCompatActivity
         int id = item.getItemId();
         Intent intent;
 
-        // TODO VERIFICAR SE O DONO ESTÁ PREENCHIDO
         if (id == R.id.nav_perfil) {
             intent = new Intent(PrincipalActivity.this, DadosActivity.class);
             startActivity(intent);
         } else if (id == R.id.nav_animais) {
-            // TODO ABRIR ANIMAIS
+            //intent = new Intent(PrincipalActivity.this, AnimalActivity.class);
+            //startActivity(intent);
         } else if (id == R.id.nav_inscritos) {
-            // TODO ABRIR INSCRITOS
+            //intent = new Intent(PrincipalActivity.this, InscritoActivity.class);
+            //startActivity(intent);
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

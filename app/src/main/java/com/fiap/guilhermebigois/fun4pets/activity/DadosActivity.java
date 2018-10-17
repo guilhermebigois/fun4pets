@@ -54,6 +54,7 @@ public class DadosActivity extends AppCompatActivity {
     private Button btnSalvar;
     private ACProgressFlower progress;
     private SFAlterarDono alterarDono;
+    private HashMap<String, String> donoResponse;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -115,7 +116,7 @@ public class DadosActivity extends AppCompatActivity {
         List<String> estados = DonoService.getEstados();
         Integer estadoPos = 0;
         for (int i = 0; i < estados.size(); i++) {
-            if (estados.get(i).substring(0,2).contains(StaticList.AccessData.getDono().getEstado())) {
+            if (estados.get(i).substring(0, 2).contains(StaticList.AccessData.getDono().getEstado())) {
                 estadoPos = i;
             }
         }
@@ -204,50 +205,6 @@ public class DadosActivity extends AppCompatActivity {
                 }
             }
         });
-    }
-
-    public class SFAlterarDono extends AsyncTask<Void, Void, Boolean> {
-        private Dono dono;
-
-        public SFAlterarDono(Dono dono) {
-            this.dono = dono;
-        }
-
-        // TODO ALTERAR DONO
-        @Override
-        protected Boolean doInBackground(Void... params) {
-            try {
-                HashMap<String, String> alterDonoResponse = DonoService.alterDono(dono);
-
-                if (!alterDonoResponse.get("code").equals("200")) {
-                    return false;
-                }
-            } catch (Exception e) {
-                return false;
-            }
-
-            return true;
-        }
-
-        @Override
-        protected void onPostExecute(final Boolean success) {
-            alterarDono = null;
-            progress.dismiss();
-
-            if (success) {
-                Toast.makeText(DadosActivity.this, "Usuário alterado com sucesso!", Toast.LENGTH_SHORT).show();
-                DadosActivity.this.finish();
-            } else {
-                ConnectivityManager cm = (ConnectivityManager) DadosActivity.this.getSystemService(Context.CONNECTIVITY_SERVICE);
-                NetworkInfo netInfo = cm.getActiveNetworkInfo();
-
-                if (!(netInfo != null) && (!(netInfo.isConnected()))) {
-                    Toast.makeText(DadosActivity.this, "Não foi possível conectar\nVerifique sua conexão com a internet", Toast.LENGTH_SHORT).show();
-                } else {
-                    Toast.makeText(DadosActivity.this, "Não foi possível alterar o usuário\nTente novamente", Toast.LENGTH_SHORT).show();
-                }
-            }
-        }
     }
 
     private Boolean validaCampos() {
@@ -435,5 +392,90 @@ public class DadosActivity extends AppCompatActivity {
         }
 
         return isValid;
+    }
+
+    public class SFAlterarDono extends AsyncTask<Void, Void, Boolean> {
+        private Dono dono;
+
+        public SFAlterarDono(Dono dono) {
+            this.dono = dono;
+        }
+
+        @Override
+        protected Boolean doInBackground(Void... params) {
+            Boolean status = true;
+
+            try {
+                HashMap<String, String> alterDonoResponse = DonoService.alterDono(dono);
+
+                if (!alterDonoResponse.get("code").equals("204")) {
+                    status = false;
+                }
+            } catch (Exception e) {
+                status = false;
+            }
+
+            // PESQUISA O DONO
+            try {
+                donoResponse = DonoService.getDonoData(dono.getEmail());
+
+                // VALIDA O SE O DONO ESTÁ CORRETO
+                if (!donoResponse.get("code").equals("200")) {
+                    status = false;
+                }
+            } catch (Exception e) {
+                status = false;
+            }
+
+            return status;
+        }
+
+        @Override
+        protected void onPostExecute(final Boolean success) {
+            alterarDono = null;
+            progress.dismiss();
+
+            if (success) {
+                Toast.makeText(DadosActivity.this, "Usuário alterado com sucesso!", Toast.LENGTH_SHORT).show();
+                DadosActivity.this.finish();
+
+                // CPF + NOME + SEXO + NASCIMENTO + EMAIL + TELEFONE + ENDERECO + BAIRRO + MUNICIPIO + ESTADO + CEP + SENHA + COMPLEMENTO + ID
+                String cpf = donoResponse.get("cpf");
+                String nome = donoResponse.get("nome");
+                String email = donoResponse.get("email");
+                String telefone = donoResponse.get("telefone");
+                String endereco = donoResponse.get("endereco");
+                String complemento = donoResponse.get("complemento");
+                String bairro = donoResponse.get("bairro");
+                String municipio = donoResponse.get("cidade");
+                String estado = donoResponse.get("estado");
+                String cep = donoResponse.get("cep");
+                String senha = donoResponse.get("senha");
+                String sexo = donoResponse.get("sexo");
+                String strNasc = donoResponse.get("nascimento");
+                String id = donoResponse.get("id");
+
+                SimpleDateFormat formato = new SimpleDateFormat("dd-MM-yyyy");
+                Date dataFormatada = new Date();
+
+                try {
+                    dataFormatada = formato.parse(strNasc);
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+
+                Dono dono = new Dono(cpf, nome, sexo, dataFormatada, email, telefone, endereco, bairro, municipio, estado, cep, senha, complemento, id);
+                StaticList.AccessData.setDono(dono);
+            } else {
+                ConnectivityManager cm = (ConnectivityManager) DadosActivity.this.getSystemService(Context.CONNECTIVITY_SERVICE);
+                NetworkInfo netInfo = cm.getActiveNetworkInfo();
+
+                if (!(netInfo != null) && (!(netInfo.isConnected()))) {
+                    Toast.makeText(DadosActivity.this, "Não foi possível conectar\nVerifique sua conexão com a internet", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(DadosActivity.this, "Não foi possível alterar o usuário\nTente novamente", Toast.LENGTH_SHORT).show();
+                }
+            }
+        }
     }
 }

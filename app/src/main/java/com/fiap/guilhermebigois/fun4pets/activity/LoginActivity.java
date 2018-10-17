@@ -33,7 +33,7 @@ import cc.cloudist.acplibrary.ACProgressFlower;
 
 public class LoginActivity extends AppCompatActivity {
     private static final String DONO_URL = "https://curious-badger-81660-dev-ed.my.salesforce.com/services/data/v43.0/sobjects/Dono__c/Email__c/";
-    
+
     private UserLoginTask mAuthTask = null;
     private AutoCompleteTextView mEmailView;
     private EditText mPasswordView;
@@ -41,21 +41,21 @@ public class LoginActivity extends AppCompatActivity {
     private HashMap<String, String> donoResponse;
     private ACProgressFlower progress;
     private Boolean connection;
-    
+
     // MÉTODO PRINCIPAL
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-        
+
         // INICIA VALORES NAS VARIÁVEIS
         mEmailView = findViewById(R.id.email);
         mEmailView.setText("juliafernandes@gmail.com");
-        
+
         // INICIA VALORES NAS VARIÁVEIS
         mPasswordView = findViewById(R.id.password);
         mPasswordView.setText("juliafernandes");
-        
+
         // AÇÃO DO BOTÃO "ENTRAR"
         Button mEmailSignInButton = findViewById(R.id.email_sign_in_button);
         mEmailSignInButton.setOnClickListener(new OnClickListener() {
@@ -64,7 +64,7 @@ public class LoginActivity extends AppCompatActivity {
                 attemptLogin();
             }
         });
-        
+
         // AÇÃO DO BOTÃO "REGISTRAR"
         Button mEmailRegisterButton = findViewById(R.id.email_register_button);
         mEmailRegisterButton.setOnClickListener(new OnClickListener() {
@@ -75,30 +75,30 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
     }
-    
+
     // EFETUA A TENTATIVA DE LOGIN
     private void attemptLogin() {
         if (mAuthTask != null) {
             return;
         }
-        
+
         // LIMPA OS ERROS EM MEMÓRIA
         mEmailView.setError(null);
         mPasswordView.setError(null);
-        
+
         String email = mEmailView.getText().toString();
         String password = mPasswordView.getText().toString();
-        
+
         boolean cancel = false;
         View focusView = null;
-        
+
         // VERIFICA SE A SENHA ESTÁ CORRETA, CASO ESTEJA PREENCHIDA
         if (TextUtils.isEmpty(password)) {
             mPasswordView.setError("Este campo é obrigatório");
             focusView = mPasswordView;
             cancel = true;
         }
-        
+
         // VERIFICA SE O E-MAIL ESTÁ CORRETO, CASO ESTEJA PREENCHIDO
         if (TextUtils.isEmpty(email)) {
             mEmailView.setError("Este campo é obrigatório");
@@ -109,7 +109,7 @@ public class LoginActivity extends AppCompatActivity {
             focusView = mEmailView;
             cancel = true;
         }
-        
+
         // CASO VÁLIDO, CONTINUA
         if (cancel) {
             focusView.requestFocus();
@@ -119,35 +119,35 @@ public class LoginActivity extends AppCompatActivity {
                     .themeColor(Color.WHITE)
                     .fadeColor(Color.DKGRAY).build();
             progress.show();
-            
+
             mAuthTask = new UserLoginTask(email, password);
             mAuthTask.execute((Void) null);
         }
     }
-    
+
     // TAREFA DE VALIDAÇÃO DE USUÁRIO
     public class UserLoginTask extends AsyncTask<Void, Void, Boolean> {
         private final String mEmail;
         private final String mPassword;
-        
+
         UserLoginTask(String email, String password) {
             mEmail = email;
             mPassword = password;
         }
-        
+
         // REALIZA PESQUISA EM BACKGROUD
         @Override
         protected Boolean doInBackground(Void... params) {
             Boolean status = true;
-            
+
             // FECHA TECLADO
             InputMethodManager imm = (InputMethodManager) getApplicationContext().getSystemService(Context.INPUT_METHOD_SERVICE);
             imm.hideSoftInputFromWindow(mEmailView.getWindowToken(), 0);
-            
+
             // PESQUISA O DONO
             try {
                 donoResponse = DonoService.getDonoData(mEmailView.getText().toString());
-                
+
                 // VALIDA O SE O DONO ESTÁ CORRETO
                 if (!donoResponse.get("code").equals("200") || !donoResponse.get("senha").equals(mPassword)) {
                     status = false;
@@ -155,19 +155,19 @@ public class LoginActivity extends AppCompatActivity {
             } catch (Exception e) {
                 status = false;
             }
-            
+
             return status;
         }
-        
+
         // PROCESSO PÓS-VALIDAÇÃO DE USUÁRIO E SENHA
         @Override
         protected void onPostExecute(final Boolean success) {
             mAuthTask = null;
             progress.dismiss();
-            
+
             if (success) {
                 AuthService.changeSharedPreferences(true, mEmailView.getText().toString(), getApplicationContext());
-                
+
                 // CPF + NOME + SEXO + NASCIMENTO + EMAIL + TELEFONE + ENDERECO + BAIRRO + MUNICIPIO + ESTADO + CEP + SENHA + COMPLEMENTO + ID
                 String cpf = donoResponse.get("cpf");
                 String nome = donoResponse.get("nome");
@@ -183,27 +183,27 @@ public class LoginActivity extends AppCompatActivity {
                 String sexo = donoResponse.get("sexo");
                 String strNasc = donoResponse.get("nascimento");
                 String id = donoResponse.get("id");
-                
+
                 SimpleDateFormat formato = new SimpleDateFormat("dd-MM-yyyy");
                 Date dataFormatada = new Date();
-                
+
                 try {
                     dataFormatada = formato.parse(strNasc);
                 } catch (ParseException e) {
                     e.printStackTrace();
                 }
-                
+
                 Dono dono = new Dono(cpf, nome, sexo, dataFormatada, email, telefone, endereco, bairro, municipio, estado, cep, senha, complemento, id);
                 StaticList.AccessData.setDono(dono);
-                
+
                 Intent intent = new Intent(LoginActivity.this, PrincipalActivity.class);
                 startActivity(intent);
-                
+
                 finish();
             } else {
                 ConnectivityManager cm = (ConnectivityManager) LoginActivity.this.getSystemService(Context.CONNECTIVITY_SERVICE);
                 NetworkInfo netInfo = cm.getActiveNetworkInfo();
-                
+
                 if (netInfo != null && netInfo.isConnected()) {
                     if (!donoResponse.get("code").equals("200")) {
                         mEmailView.requestFocus();

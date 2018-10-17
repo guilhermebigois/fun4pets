@@ -28,4 +28,7 @@
     <string name="title_activity_perfil">PerfilActivity</string>
 
     <string name="title_activity_espera">EsperaActivity</string>
+    <string name="title_activity_animal">AnimalActivity</string>
+    <string name="title_activity_inscritos">InscritosActivity</string>
+    <string name="title_activity_inscrito">InscritoActivity</string>
 </resources>

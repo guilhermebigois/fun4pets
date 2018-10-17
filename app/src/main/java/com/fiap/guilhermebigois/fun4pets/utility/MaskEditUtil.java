@@ -9,20 +9,20 @@ public abstract class MaskEditUtil {
     public static final String FORMAT_FONE = "(##) ####-#####";
     public static final String FORMAT_CEP = "#####-###";
     public static final String FORMAT_DATE = "##/##/####";
-    
+
     public static TextWatcher mask(final EditText ediTxt, final String mask) {
         return new TextWatcher() {
             boolean isUpdating;
             String old = "";
-            
+
             @Override
             public void afterTextChanged(final Editable s) {
             }
-            
+
             @Override
             public void beforeTextChanged(final CharSequence s, final int start, final int count, final int after) {
             }
-            
+
             @Override
             public void onTextChanged(final CharSequence s, final int start, final int before, final int count) {
                 final String str = MaskEditUtil.unmask(s.toString());
@@ -51,7 +51,7 @@ public abstract class MaskEditUtil {
             }
         };
     }
-    
+
     public static String unmask(final String s) {
         return s.replaceAll("[.]", "").replaceAll("[-]", "").replaceAll("[/]", "").replaceAll("[(]", "").replaceAll("[ ]", "").replaceAll("[:]", "").replaceAll("[)]", "");
     }

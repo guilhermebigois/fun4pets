@@ -27,18 +27,18 @@ public class SplashActivity extends Activity {
     private GetDonoTask getDonoTask;
     private HashMap<String, String> donoResponse;
     private Intent view;
-    
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
-        
+
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
                 Intent intent;
                 String email;
-                
+
                 if (checkSharedPreferences()) {
                     SharedPreferences preferences = getSharedPreferences("user_preferences", MODE_PRIVATE);
                     email = preferences.getString("email", "");
@@ -58,22 +58,22 @@ public class SplashActivity extends Activity {
                     intent = new Intent(SplashActivity.this, LoginActivity.class);
                     startActivity(intent);
                 }
-                
+
                 finish();
             }
         }, SPLASH_TIME_OUT);
     }
-    
+
     private boolean checkSharedPreferences() {
         boolean isActive = true;
         SharedPreferences preferences = getSharedPreferences("user_preferences", MODE_PRIVATE);
-        
+
         if (!preferences.contains("ativo")) {
             isActive = false;
         } else if (!preferences.getBoolean("ativo", false)) {
             isActive = false;
         }
-        
+
         return isActive;
     }
 
