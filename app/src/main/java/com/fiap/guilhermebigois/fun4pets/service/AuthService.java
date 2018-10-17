@@ -10,7 +10,6 @@ import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
-
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
@@ -76,12 +75,13 @@ public class AuthService {
         return baerer;
     }
     
-    public static void changeSharedPreferences(Boolean change, Context context) {
+    public static void changeSharedPreferences(Boolean change, String email, Context context) {
         SharedPreferences preferences;
         preferences = context.getSharedPreferences("user_preferences", MODE_PRIVATE);
         
         SharedPreferences.Editor editor = preferences.edit();
         editor.putBoolean("ativo", change);
+        editor.putString("email", email);
         editor.commit();
         
     }

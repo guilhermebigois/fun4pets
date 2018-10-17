@@ -4,10 +4,11 @@
     <item
         android:id="@+id/action_excluir"
         android:icon="@drawable/ic_sentiment_very_dissatisfied_black_24dp"
-        android:title="Deletar conta" />
+        android:title="Deletar conta"
+        android:visible="false" />
     <item
         android:id="@+id/action_sair"
         android:orderInCategory="100"
-        android:title="Sair"
+        android:title="Desconectar"
         app:showAsAction="never" />
 </menu>

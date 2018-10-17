@@ -166,9 +166,9 @@ public class LoginActivity extends AppCompatActivity {
             progress.dismiss();
             
             if (success) {
-                AuthService.changeSharedPreferences(true, getApplicationContext());
+                AuthService.changeSharedPreferences(true, mEmailView.getText().toString(), getApplicationContext());
                 
-                // CPF + NOME + SEXO + NASCIMENTO + EMAIL + TELEFONE + ENDERECO + BAIRRO + MUNICIPIO + ESTADO + CEP + SENHA + COMPLEMENTO
+                // CPF + NOME + SEXO + NASCIMENTO + EMAIL + TELEFONE + ENDERECO + BAIRRO + MUNICIPIO + ESTADO + CEP + SENHA + COMPLEMENTO + ID
                 String cpf = donoResponse.get("cpf");
                 String nome = donoResponse.get("nome");
                 String email = donoResponse.get("email");
@@ -176,12 +176,13 @@ public class LoginActivity extends AppCompatActivity {
                 String endereco = donoResponse.get("endereco");
                 String complemento = donoResponse.get("complemento");
                 String bairro = donoResponse.get("bairro");
-                String municipio = donoResponse.get("municipio");
+                String municipio = donoResponse.get("cidade");
                 String estado = donoResponse.get("estado");
                 String cep = donoResponse.get("cep");
                 String senha = donoResponse.get("senha");
                 String sexo = donoResponse.get("sexo");
                 String strNasc = donoResponse.get("nascimento");
+                String id = donoResponse.get("id");
                 
                 SimpleDateFormat formato = new SimpleDateFormat("dd-MM-yyyy");
                 Date dataFormatada = new Date();
@@ -192,10 +193,8 @@ public class LoginActivity extends AppCompatActivity {
                     e.printStackTrace();
                 }
                 
-                Dono dono = new Dono(cpf, nome, sexo, dataFormatada, email, telefone, endereco, bairro, municipio, estado, cep, senha, complemento);
+                Dono dono = new Dono(cpf, nome, sexo, dataFormatada, email, telefone, endereco, bairro, municipio, estado, cep, senha, complemento, id);
                 StaticList.AccessData.setDono(dono);
-
-                AuthService.changeSharedPreferences(true, getApplicationContext());
                 
                 Intent intent = new Intent(LoginActivity.this, PrincipalActivity.class);
                 startActivity(intent);

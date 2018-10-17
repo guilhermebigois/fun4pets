@@ -26,4 +26,6 @@
     <string name="title_activity_principal">PrincipalActivity</string>
     <string name="title_activity_aaa">aaaActivity</string>
     <string name="title_activity_perfil">PerfilActivity</string>
+
+    <string name="title_activity_espera">EsperaActivity</string>
 </resources>

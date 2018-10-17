@@ -37,7 +37,10 @@
             android:name=".activity.PrincipalActivity"
             android:label="Home"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".activity.DadosActivity"></activity>
+        <activity android:name=".activity.DadosActivity" />
+        <activity
+            android:name=".activity.EsperaActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:theme="@style/FullscreenTheme"></activity>
     </application>
-
 </manifest>

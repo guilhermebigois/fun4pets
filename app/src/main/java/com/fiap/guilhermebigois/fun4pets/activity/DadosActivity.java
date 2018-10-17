@@ -6,8 +6,8 @@ import android.graphics.Color;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.ArrayAdapter;
@@ -20,6 +20,7 @@ import android.widget.Toast;
 
 import com.fiap.guilhermebigois.fun4pets.MaskEditUtil;
 import com.fiap.guilhermebigois.fun4pets.R;
+import com.fiap.guilhermebigois.fun4pets.dao.StaticList;
 import com.fiap.guilhermebigois.fun4pets.model.Dono;
 import com.fiap.guilhermebigois.fun4pets.service.DonoService;
 
@@ -75,14 +76,11 @@ public class DadosActivity extends AppCompatActivity {
         spnEstado = findViewById(R.id.registrar_estado);
         txtCEP = findViewById(R.id.registrar_cep);
         txtSenha = findViewById(R.id.registrar_senha);
+        txtEmail = findViewById(R.id.registrar_email);
 
         // ALTERA TEXTO DO BOTÃO
         btnSalvar = findViewById(R.id.registrar_btn_salvar);
         btnSalvar.setText("ALTERAR");
-
-        // DESABILITA A ALTERAÇÃO DE E-MAIL
-        txtEmail = findViewById(R.id.registrar_email);
-        txtEmail.setEnabled(false);
 
         // ADICIONA AS MÁSCARAS NOS CAMPOS
         txtNascimento.addTextChangedListener(MaskEditUtil.mask(txtNascimento, MaskEditUtil.FORMAT_DATE));
@@ -95,6 +93,37 @@ public class DadosActivity extends AppCompatActivity {
         arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_item);
         spnEstado.setAdapter(arrayAdapter);
 
+        // ATRIBUI DADOS DA MEMÓRIA PARA O CAMPO
+        txtCPF.setText(StaticList.AccessData.getDono().getCpf());
+        txtNome.setText(StaticList.AccessData.getDono().getNome());
+        txtTelefone.setText(StaticList.AccessData.getDono().getTelefone());
+        txtEndereco.setText(StaticList.AccessData.getDono().getEndereco());
+        txtComplemento.setText(StaticList.AccessData.getDono().getComplemento());
+        txtBairro.setText(StaticList.AccessData.getDono().getBairro());
+        txtMunicipio.setText(StaticList.AccessData.getDono().getMunicipio());
+        txtCEP.setText(StaticList.AccessData.getDono().getCep());
+        txtSenha.setText(StaticList.AccessData.getDono().getSenha());
+        txtEmail.setText(StaticList.AccessData.getDono().getEmail());
+
+        Integer masculino = R.id.registrar_rdo_masc;
+        Integer feminino = R.id.registrar_rdo_fem;
+        rdoSexo.check((StaticList.AccessData.getDono().getSexo().equals("M")) ? masculino : feminino);
+
+        SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
+        txtNascimento.setText(formato.format(StaticList.AccessData.getDono().getNascimento()));
+
+        List<String> estados = DonoService.getEstados();
+        Integer estadoPos = 0;
+        for (int i = 0; i < estados.size(); i++) {
+            if (estados.get(i).substring(0,2).contains(StaticList.AccessData.getDono().getEstado())) {
+                estadoPos = i;
+            }
+        }
+        spnEstado.setSelection(estadoPos);
+
+        // DESABILITA A ALTERAÇÃO DE E-MAIL
+        txtEmail.setEnabled(false);
+
         // MONTA DATEPICKER
         final Calendar myCalendar = Calendar.getInstance();
         final DatePickerDialog.OnDateSetListener date = new DatePickerDialog.OnDateSetListener() {
@@ -105,7 +134,7 @@ public class DadosActivity extends AppCompatActivity {
                 myCalendar.set(Calendar.MONTH, monthOfYear);
                 myCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
 
-                String myFormat = "dd/MM/yyyy"; //In which you need put here
+                String myFormat = "dd/MM/yyyy";
                 SimpleDateFormat sdf = new SimpleDateFormat(myFormat, new Locale("pt", "BR"));
 
                 txtNascimento.setText(sdf.format(myCalendar.getTime()));
@@ -144,6 +173,7 @@ public class DadosActivity extends AppCompatActivity {
                     String estado = spnEstado.getSelectedItem().toString().substring(0, 2);
                     String cep = txtCEP.getText().toString();
                     String senha = txtSenha.getText().toString();
+                    String id = StaticList.AccessData.getDono().getId();
 
                     int opcSexo = rdoSexo.getCheckedRadioButtonId();
                     String sexo = (opcSexo == R.id.registrar_rdo_masc) ? "M" : "F";
@@ -160,8 +190,8 @@ public class DadosActivity extends AppCompatActivity {
                         e.printStackTrace();
                     }
 
-                    // CPF + NOME + SEXO + NASCIMENTO + EMAIL + TELEFONE + ENDERECO + BAIRRO + MUNICIPIO + ESTADO + CEP + SENHA + COMPLEMENTO
-                    Dono dono = new Dono(cpf, nome, sexo, dataFormatada, email, telefone, endereco, bairro, municipio, estado, cep, senha, complemento);
+                    // CPF + NOME + SEXO + NASCIMENTO + EMAIL + TELEFONE + ENDERECO + BAIRRO + MUNICIPIO + ESTADO + CEP + SENHA + COMPLEMENTO + ID
+                    Dono dono = new Dono(cpf, nome, sexo, dataFormatada, email, telefone, endereco, bairro, municipio, estado, cep, senha, complemento, id);
 
                     progress = new ACProgressFlower.Builder(DadosActivity.this)
                             .direction(ACProgressConstant.DIRECT_CLOCKWISE)
@@ -187,9 +217,9 @@ public class DadosActivity extends AppCompatActivity {
         @Override
         protected Boolean doInBackground(Void... params) {
             try {
-                HashMap<String, String> addDonoResponse = DonoService.addDono(dono);
+                HashMap<String, String> alterDonoResponse = DonoService.alterDono(dono);
 
-                if (!addDonoResponse.get("code").equals("201")) {
+                if (!alterDonoResponse.get("code").equals("200")) {
                     return false;
                 }
             } catch (Exception e) {

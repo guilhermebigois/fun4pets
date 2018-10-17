@@ -3,9 +3,8 @@ package com.fiap.guilhermebigois.fun4pets.activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.view.View;
 import android.support.design.widget.NavigationView;
+import android.support.design.widget.Snackbar;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -13,6 +12,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 
 import com.fiap.guilhermebigois.fun4pets.R;
 import com.fiap.guilhermebigois.fun4pets.service.AuthService;
@@ -71,7 +71,7 @@ public class PrincipalActivity extends AppCompatActivity
             Intent intent = new Intent(PrincipalActivity.this, LoginActivity.class);
             startActivity(intent);
 
-            AuthService.changeSharedPreferences(false, getApplicationContext());
+            AuthService.changeSharedPreferences(false, "", getApplicationContext());
             this.finish();
 
             return true;
@@ -88,6 +88,7 @@ public class PrincipalActivity extends AppCompatActivity
         int id = item.getItemId();
         Intent intent;
 
+        // TODO VERIFICAR SE O DONO ESTÁ PREENCHIDO
         if (id == R.id.nav_perfil) {
             intent = new Intent(PrincipalActivity.this, DadosActivity.class);
             startActivity(intent);

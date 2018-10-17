@@ -152,7 +152,7 @@ public class RegistrarActivity extends AppCompatActivity {
                     }
                     
                     // CPF + NOME + SEXO + NASCIMENTO + EMAIL + TELEFONE + ENDERECO + BAIRRO + MUNICIPIO + ESTADO + CEP + SENHA + COMPLEMENTO
-                    Dono dono = new Dono(cpf, nome, sexo, dataFormatada, email, telefone, endereco, bairro, municipio, estado, cep, senha, complemento);
+                    Dono dono = new Dono(cpf, nome, sexo, dataFormatada, email, telefone, endereco, bairro, municipio, estado, cep, senha, complemento, "");
                     
                     progress = new ACProgressFlower.Builder(RegistrarActivity.this)
                             .direction(ACProgressConstant.DIRECT_CLOCKWISE)

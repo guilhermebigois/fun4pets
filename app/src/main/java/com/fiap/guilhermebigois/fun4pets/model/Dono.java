@@ -16,21 +16,9 @@ public class Dono {
     private String estado;
     private String cep;
     private String senha;
+    private String id;
     
-    public Dono(String cpf, String nome, String sexo, Date nascimento, String endereco, String bairro, String municipio, String estado, String cep, String senha) {
-        this.cpf = cpf;
-        this.nome = nome;
-        this.sexo = sexo;
-        this.nascimento = nascimento;
-        this.endereco = endereco;
-        this.bairro = bairro;
-        this.municipio = municipio;
-        this.estado = estado;
-        this.cep = cep;
-        this.senha = senha;
-    }
-    
-    public Dono(String cpf, String nome, String sexo, Date nascimento, String email, String telefone, String endereco, String bairro, String municipio, String estado, String cep, String senha, String complemento) {
+    public Dono(String cpf, String nome, String sexo, Date nascimento, String email, String telefone, String endereco, String bairro, String municipio, String estado, String cep, String senha, String complemento, String id) {
         this.cpf = cpf;
         this.nome = nome;
         this.sexo = sexo;
@@ -44,6 +32,7 @@ public class Dono {
         this.estado = estado;
         this.cep = cep;
         this.senha = senha;
+        this.id = id;
     }
     
     public String getCpf() {
@@ -148,5 +137,13 @@ public class Dono {
     
     public void setSenha(String senha) {
         this.senha = senha;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 }

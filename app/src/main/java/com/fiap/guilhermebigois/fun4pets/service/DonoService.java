@@ -69,7 +69,9 @@ public class DonoService {
             donoResponse.put("bairro", jsonObject.getString("Bairro__c"));
             donoResponse.put("cidade", jsonObject.getString("Cidade__c"));
             donoResponse.put("estado", jsonObject.getString("Estado__c"));
+            donoResponse.put("email", email);
             donoResponse.put("cep", jsonObject.getString("CEP__c"));
+            donoResponse.put("id", jsonObject.getString("Id"));
         } else {
             JSONArray jsonArray = new JSONArray(result.toString());
             String error = jsonArray.get(0).toString();
@@ -130,6 +132,59 @@ public class DonoService {
             donoResponse.put("code", String.valueOf(response.getStatusLine().getStatusCode()));
         }
         
+        return donoResponse;
+    }
+
+    // TODO TERMINAR DONO ALTERAR patch
+    public static HashMap<String, String> alterDono(Dono dono) throws Exception {
+        HashMap<String, String> donoResponse = new HashMap<String, String>();
+        String bearer = AuthService.getToken();
+
+        // CLIENTE HTTP
+        HttpClient client = new DefaultHttpClient();
+        HttpPost post = new HttpPost(DONO_URL);
+
+        // BODY
+        StringEntity input = new StringEntity(changeDonoToJSON(dono), "UTF-8");
+        input.setContentType("application/json;charset=UTF-8");
+        post.setEntity(input);
+
+        input.setContentEncoding(new BasicHeader(HTTP.CONTENT_TYPE, "application/json;charset=UTF-8"));
+        post.setHeader("Accept", "application/json");
+        post.setEntity(input);
+
+        // CABEÇALHO
+        post.setHeader("Authorization", "Bearer " + bearer);
+        post.setHeader("Content-Type", "application/json");
+
+        // RESPOSTA DO POST
+        HttpResponse response = client.execute(post);
+
+        // FAZ O TRAMPO DE LER TUDO
+        BufferedReader rd = new BufferedReader(
+                new InputStreamReader(response.getEntity().getContent()));
+
+        // BUFFERIZA A LINHA
+        StringBuffer result = new StringBuffer();
+        String line = "";
+
+        // WHILE DOIDO ATÉ PREENCHER A LINHA
+        while ((line = rd.readLine()) != null) {
+            result.append(line);
+        }
+
+        // VERIFICA SE DEU SUCESSO
+        if (response.getStatusLine().getStatusCode() == 201) {
+            JSONObject jsonObject = new JSONObject(result.toString());
+
+            donoResponse.put("code", "201");
+        } else {
+            JSONArray jsonArray = new JSONArray(result.toString());
+            String error = jsonArray.get(0).toString();
+
+            donoResponse.put("code", String.valueOf(response.getStatusLine().getStatusCode()));
+        }
+
         return donoResponse;
     }
     
