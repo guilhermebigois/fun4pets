@@ -263,7 +263,7 @@ public class AddAnimalActivity extends AppCompatActivity {
             progress.dismiss();
 
             if (success) {
-                Toast.makeText(AddAnimalActivity.this, "Pet cadastrado com sucesso!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(AddAnimalActivity.this, "Pet cadastrado com sucesso!\nO mesmo estará em seus registros no próximo login", Toast.LENGTH_LONG).show();
                 AddAnimalActivity.this.finish();
             } else {
                 ConnectivityManager cm = (ConnectivityManager) AddAnimalActivity.this.getSystemService(Context.CONNECTIVITY_SERVICE);
