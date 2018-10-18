@@ -3,7 +3,7 @@ package com.fiap.guilhermebigois.fun4pets.model;
 import java.util.Date;
 
 public class Animal {
-    private Integer id;
+    private String id;
     private String nome;
     private String sexo;
     private Date nascimento;
@@ -12,17 +12,7 @@ public class Animal {
     private String coloracao;
     private Dono dono;
 
-    public Animal(Integer id, String nome, String sexo, String especie, String raca, String coloracao, Dono dono) {
-        this.id = id;
-        this.nome = nome;
-        this.sexo = sexo;
-        this.especie = especie;
-        this.raca = raca;
-        this.coloracao = coloracao;
-        this.dono = dono;
-    }
-
-    public Animal(Integer id, String nome, String sexo, Date nascimento, String especie, String raca, String coloracao, Dono dono) {
+    public Animal(String nome, String sexo, Date nascimento, String especie, String raca, String coloracao, Dono dono, String id) {
         this.id = id;
         this.nome = nome;
         this.sexo = sexo;
@@ -33,11 +23,11 @@ public class Animal {
         this.dono = dono;
     }
 
-    public Integer getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(String id) {
         this.id = id;
     }
 

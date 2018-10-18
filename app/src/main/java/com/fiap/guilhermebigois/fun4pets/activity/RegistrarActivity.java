@@ -108,9 +108,6 @@ public class RegistrarActivity extends AppCompatActivity {
         txtNascimento.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ((InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE))
-                        .hideSoftInputFromWindow(txtNascimento.getWindowToken(), 0);
-
                 new DatePickerDialog(RegistrarActivity.this, date, myCalendar
                         .get(Calendar.YEAR), myCalendar.get(Calendar.MONTH),
                         myCalendar.get(Calendar.DAY_OF_MONTH)).show();
@@ -151,7 +148,7 @@ public class RegistrarActivity extends AppCompatActivity {
                         e.printStackTrace();
                     }
 
-                    // CPF + NOME + SEXO + NASCIMENTO + EMAIL + TELEFONE + ENDERECO + BAIRRO + MUNICIPIO + ESTADO + CEP + SENHA + COMPLEMENTO
+                    // CPF + NOME + SEXO + NASCIMENTO + EMAIL + TELEFONE + ENDERECO + BAIRRO + MUNICIPIO + ESTADO + CEP + SENHA + COMPLEMENTO + ID
                     Dono dono = new Dono(cpf, nome, sexo, dataFormatada, email, telefone, endereco, bairro, municipio, estado, cep, senha, complemento, "");
 
                     progress = new ACProgressFlower.Builder(RegistrarActivity.this)
@@ -167,6 +164,7 @@ public class RegistrarActivity extends AppCompatActivity {
         });
     }
 
+    // FUNÇÃO PARA VALIDAÇÃO DE CAMPOS
     private Boolean validaCampos() {
         final String ERROR_MESSAGE = "Este campo é obrigatório!";
 
