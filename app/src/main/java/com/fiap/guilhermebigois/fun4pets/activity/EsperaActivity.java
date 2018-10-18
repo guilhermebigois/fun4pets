@@ -23,6 +23,11 @@ public class EsperaActivity extends AppCompatActivity {
                 .themeColor(Color.WHITE)
                 .fadeColor(Color.DKGRAY).build();
         progress.show();
-        progress.show();
+    }
+
+    // MÉTODO PARA FECHAR ACTIVITY AO SAIR
+    protected void onPause() {
+        super.onPause();
+        finish();
     }
 }

@@ -50,5 +50,4 @@
             android:name=".activity.AddAnimalActivity"
             android:label="Adicionar Pet"></activity>
     </application>
-
 </manifest>

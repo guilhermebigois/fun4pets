@@ -13,13 +13,16 @@ import android.widget.Toast;
 
 import com.fiap.guilhermebigois.fun4pets.R;
 import com.fiap.guilhermebigois.fun4pets.dao.StaticList;
+import com.fiap.guilhermebigois.fun4pets.model.Animal;
 import com.fiap.guilhermebigois.fun4pets.model.Dono;
+import com.fiap.guilhermebigois.fun4pets.service.AnimalService;
 import com.fiap.guilhermebigois.fun4pets.service.DonoService;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 
 public class SplashActivity extends Activity {
     private static int SPLASH_TIME_OUT = 2000;
@@ -96,6 +99,42 @@ public class SplashActivity extends Activity {
                 // VALIDA O SE O DONO ESTÁ CORRETO
                 if (!donoResponse.get("code").equals("200")) {
                     status = false;
+                } else {
+                    // CPF + NOME + SEXO + NASCIMENTO + EMAIL + TELEFONE + ENDERECO + BAIRRO + MUNICIPIO + ESTADO + CEP + SENHA + COMPLEMENTO + ID
+                    String cpf = donoResponse.get("cpf");
+                    String nome = donoResponse.get("nome");
+                    String email = donoResponse.get("email");
+                    String telefone = donoResponse.get("telefone");
+                    String endereco = donoResponse.get("endereco");
+                    String complemento = donoResponse.get("complemento");
+                    String bairro = donoResponse.get("bairro");
+                    String municipio = donoResponse.get("cidade");
+                    String estado = donoResponse.get("estado");
+                    String cep = donoResponse.get("cep");
+                    String senha = donoResponse.get("senha");
+                    String sexo = donoResponse.get("sexo");
+                    String strNasc = donoResponse.get("nascimento");
+                    String id = donoResponse.get("id");
+
+                    SimpleDateFormat formato = new SimpleDateFormat("dd-MM-yyyy");
+                    Date dataFormatada = new Date();
+
+                    try {
+                        dataFormatada = formato.parse(strNasc);
+                    } catch (ParseException e) {
+                        e.printStackTrace();
+                    }
+
+                    Dono dono = new Dono(cpf, nome, sexo, dataFormatada, email, telefone, endereco, bairro, municipio, estado, cep, senha, complemento, id);
+                    StaticList.AccessData.setDono(dono);
+
+                    List<Animal> animais = AnimalService.getAllAnimals();
+
+                    if (animais == null) {
+                        return false;
+                    } else {
+                        StaticList.AccessData.setAnimalList(animais);
+                    }
                 }
             } catch (Exception e) {
                 status = false;
@@ -110,34 +149,6 @@ public class SplashActivity extends Activity {
             getDonoTask = null;
 
             if (success) {
-                // CPF + NOME + SEXO + NASCIMENTO + EMAIL + TELEFONE + ENDERECO + BAIRRO + MUNICIPIO + ESTADO + CEP + SENHA + COMPLEMENTO + ID
-                String cpf = donoResponse.get("cpf");
-                String nome = donoResponse.get("nome");
-                String email = donoResponse.get("email");
-                String telefone = donoResponse.get("telefone");
-                String endereco = donoResponse.get("endereco");
-                String complemento = donoResponse.get("complemento");
-                String bairro = donoResponse.get("bairro");
-                String municipio = donoResponse.get("cidade");
-                String estado = donoResponse.get("estado");
-                String cep = donoResponse.get("cep");
-                String senha = donoResponse.get("senha");
-                String sexo = donoResponse.get("sexo");
-                String strNasc = donoResponse.get("nascimento");
-                String id = donoResponse.get("id");
-
-                SimpleDateFormat formato = new SimpleDateFormat("dd-MM-yyyy");
-                Date dataFormatada = new Date();
-
-                try {
-                    dataFormatada = formato.parse(strNasc);
-                } catch (ParseException e) {
-                    e.printStackTrace();
-                }
-
-                Dono dono = new Dono(cpf, nome, sexo, dataFormatada, email, telefone, endereco, bairro, municipio, estado, cep, senha, complemento, id);
-                StaticList.AccessData.setDono(dono);
-
                 Intent intent = new Intent(SplashActivity.this, PrincipalActivity.class);
                 startActivity(intent);
             } else {
