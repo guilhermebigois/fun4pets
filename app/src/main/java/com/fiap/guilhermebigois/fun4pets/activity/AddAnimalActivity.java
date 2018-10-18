@@ -1,7 +1,11 @@
 package com.fiap.guilhermebigois.fun4pets.activity;
 
 import android.app.DatePickerDialog;
+import android.content.Context;
 import android.graphics.Color;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
+import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -13,7 +17,9 @@ import android.widget.Toast;
 
 import com.fiap.guilhermebigois.fun4pets.MaskEditUtil;
 import com.fiap.guilhermebigois.fun4pets.R;
-import com.fiap.guilhermebigois.fun4pets.model.Dono;
+import com.fiap.guilhermebigois.fun4pets.dao.StaticList;
+import com.fiap.guilhermebigois.fun4pets.model.Animal;
+import com.fiap.guilhermebigois.fun4pets.service.AnimalService;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -21,6 +27,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 
@@ -35,6 +42,9 @@ public class AddAnimalActivity extends AppCompatActivity {
     private EditText txtRaca;
     private EditText txtColoracao;
     private Button btnSalvar;
+    private ACProgressFlower progress;
+    private SFAddAnimal addAnimal;
+    private Animal animalFinal;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -90,7 +100,7 @@ public class AddAnimalActivity extends AppCompatActivity {
                     String nome = txtNome.getText().toString();
                     String especie = txtEspecie.getText().toString();
                     String raca = txtRaca.getText().toString();
-                    String coloracao = txt.getText().toString();
+                    String coloracao = txtColoracao.getText().toString();
 
                     int opcSexo = rdoSexo.getCheckedRadioButtonId();
                     String sexo = (opcSexo == R.id.animal_rdo_masc) ? "M" : "F";
@@ -107,19 +117,18 @@ public class AddAnimalActivity extends AppCompatActivity {
                         e.printStackTrace();
                     }
 
-                    /*
-                    // CPF + NOME + SEXO + NASCIMENTO + EMAIL + TELEFONE + ENDERECO + BAIRRO + MUNICIPIO + ESTADO + CEP + SENHA + COMPLEMENTO + ID
-                    Dono dono = new Dono(cpf, nome, sexo, dataFormatada, email, telefone, endereco, bairro, municipio, estado, cep, senha, complemento, "");
 
-                    progress = new ACProgressFlower.Builder(RegistrarActivity.this)
+                    // NOME, SEXO, NASCIMENTO, ESPECIE, RACA, COLORACAO, DONO, ID
+                    animalFinal = new Animal(nome, sexo, dataFormatada, especie, raca, coloracao, StaticList.AccessData.getDono(), "");
+
+                    progress = new ACProgressFlower.Builder(AddAnimalActivity.this)
                             .direction(ACProgressConstant.DIRECT_CLOCKWISE)
                             .themeColor(Color.WHITE)
                             .fadeColor(Color.DKGRAY).build();
                     progress.show();
 
-                    donoPOST = new RegistrarActivity.SFDonoPOST(dono);
-                    donoPOST.execute((Void) null);
-                    */
+                    addAnimal = new SFAddAnimal(animalFinal);
+                    addAnimal.execute((Void) null);
                 }
             }
         });
@@ -217,5 +226,50 @@ public class AddAnimalActivity extends AppCompatActivity {
         }
 
         return isValid;
+    }
+
+    public class SFAddAnimal extends AsyncTask<Void, Void, Boolean> {
+        private Animal animal;
+
+        public SFAddAnimal(Animal animal) {
+            this.animal = animal;
+        }
+
+        @Override
+        protected Boolean doInBackground(Void... params) {
+            try {
+                HashMap<String, String> addAnimalResponse = AnimalService.addAnimal(animal);
+
+                if (!addAnimalResponse.get("code").equals("201")) {
+                    return false;
+                } else {
+                    animalFinal.setId(addAnimalResponse.get("id"));
+                }
+            } catch (Exception e) {
+                return false;
+            }
+
+            return true;
+        }
+
+        @Override
+        protected void onPostExecute(final Boolean success) {
+            addAnimal = null;
+            progress.dismiss();
+
+            if (success) {
+                Toast.makeText(AddAnimalActivity.this, "Pet cadastrado com sucesso!", Toast.LENGTH_SHORT).show();
+                AddAnimalActivity.this.finish();
+            } else {
+                ConnectivityManager cm = (ConnectivityManager) AddAnimalActivity.this.getSystemService(Context.CONNECTIVITY_SERVICE);
+                NetworkInfo netInfo = cm.getActiveNetworkInfo();
+
+                if (!(netInfo != null) && (!(netInfo.isConnected()))) {
+                    Toast.makeText(AddAnimalActivity.this, "Não foi possível conectar\nVerifique sua conexão com a internet", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(AddAnimalActivity.this, "Não foi possível cadastrar o pet\nTente novamente", Toast.LENGTH_SHORT).show();
+                }
+            }
+        }
     }
 }
