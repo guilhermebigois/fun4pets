@@ -20,6 +20,10 @@ public class StaticList {
             return animalList;
         }
 
+        public static void setAnimalList(List<Animal> animais) {
+            AccessData.animalList = animais;
+        }
+
         public static void addAnimal(Animal animal) {
             animalList.add(animal);
         }

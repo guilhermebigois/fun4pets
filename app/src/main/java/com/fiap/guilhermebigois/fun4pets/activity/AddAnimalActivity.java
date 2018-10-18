@@ -117,7 +117,6 @@ public class AddAnimalActivity extends AppCompatActivity {
                         e.printStackTrace();
                     }
 
-
                     // NOME, SEXO, NASCIMENTO, ESPECIE, RACA, COLORACAO, DONO, ID
                     animalFinal = new Animal(nome, sexo, dataFormatada, especie, raca, coloracao, StaticList.AccessData.getDono(), "");
 
@@ -243,7 +242,13 @@ public class AddAnimalActivity extends AppCompatActivity {
                 if (!addAnimalResponse.get("code").equals("201")) {
                     return false;
                 } else {
-                    animalFinal.setId(addAnimalResponse.get("id"));
+                    List<Animal> animais = AnimalService.getAllAnimals();
+
+                    if (animais == null) {
+                        return false;
+                    } else {
+                        StaticList.AccessData.setAnimalList(animais);
+                    }
                 }
             } catch (Exception e) {
                 return false;
