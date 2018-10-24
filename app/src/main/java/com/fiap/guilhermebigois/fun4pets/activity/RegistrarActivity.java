@@ -381,6 +381,7 @@ public class RegistrarActivity extends AppCompatActivity {
 
             if (success) {
                 Toast.makeText(RegistrarActivity.this, "Usuário cadastrado com sucesso!", Toast.LENGTH_SHORT).show();
+                RegistrarActivity.this.recreate();
                 RegistrarActivity.this.finish();
             } else {
                 ConnectivityManager cm = (ConnectivityManager) RegistrarActivity.this.getSystemService(Context.CONNECTIVITY_SERVICE);

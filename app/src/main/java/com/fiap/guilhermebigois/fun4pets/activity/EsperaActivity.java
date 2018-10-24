@@ -28,6 +28,7 @@ public class EsperaActivity extends AppCompatActivity {
     // MÉTODO PARA FECHAR ACTIVITY AO SAIR
     protected void onPause() {
         super.onPause();
+        progress.dismiss();
         finish();
     }
 }

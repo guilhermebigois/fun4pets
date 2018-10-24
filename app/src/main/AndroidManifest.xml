@@ -48,6 +48,6 @@
         </activity>
         <activity
             android:name=".activity.AddAnimalActivity"
-            android:label="Adicionar Pet"></activity>
+            android:label="Adicionar Pet" />
     </application>
 </manifest>

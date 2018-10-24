@@ -6,6 +6,7 @@ import com.fiap.guilhermebigois.fun4pets.model.Dono;
 import com.fiap.guilhermebigois.fun4pets.model.Inscrito;
 import com.fiap.guilhermebigois.fun4pets.model.Resultado;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class StaticList {
@@ -17,6 +18,9 @@ public class StaticList {
         static List<Resultado> resultadoList;
 
         public static List<Animal> getAnimalList() {
+            if (animalList == null) {
+                animalList = new ArrayList<Animal>();
+            }
             return animalList;
         }
 
@@ -29,6 +33,10 @@ public class StaticList {
         }
 
         public static List<Competicao> getCompeticaoList() {
+            if (competicaoList == null) {
+                competicaoList = new ArrayList<Competicao>();
+            }
+
             return competicaoList;
         }
 
@@ -37,6 +45,10 @@ public class StaticList {
         }
 
         public static Dono getDono() {
+            if (dono == null) {
+                dono = new Dono();
+            }
+
             return dono;
         }
 
@@ -45,6 +57,10 @@ public class StaticList {
         }
 
         public static List<Inscrito> getInscritoList() {
+            if (inscritoList == null) {
+                inscritoList = new ArrayList<Inscrito>();
+            }
+
             return inscritoList;
         }
 
@@ -53,11 +69,23 @@ public class StaticList {
         }
 
         public static List<Resultado> getResultadoList() {
+            if (getResultadoList() == null) {
+                resultadoList = new ArrayList<Resultado>();
+            }
+
             return resultadoList;
         }
 
         public static void addResultado(Resultado resultado) {
             resultadoList.add(resultado);
+        }
+
+        public static void clearStaticData() {
+            animalList = null;
+            competicaoList = null;
+            dono = null;
+            inscritoList = null;
+            resultadoList = null;
         }
     }
 }

@@ -18,6 +18,8 @@ public class Dono {
     private String senha;
     private String id;
 
+    public Dono() {}
+
     public Dono(String cpf, String nome, String sexo, Date nascimento, String email, String telefone, String endereco, String bairro, String municipio, String estado, String cep, String senha, String complemento, String id) {
         this.cpf = cpf;
         this.nome = nome;

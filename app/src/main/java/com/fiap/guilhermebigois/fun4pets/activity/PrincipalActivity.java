@@ -15,6 +15,7 @@ import android.view.MenuItem;
 import android.view.View;
 
 import com.fiap.guilhermebigois.fun4pets.R;
+import com.fiap.guilhermebigois.fun4pets.dao.StaticList;
 import com.fiap.guilhermebigois.fun4pets.service.AuthService;
 
 public class PrincipalActivity extends AppCompatActivity
@@ -71,7 +72,9 @@ public class PrincipalActivity extends AppCompatActivity
             Intent intent = new Intent(PrincipalActivity.this, LoginActivity.class);
             startActivity(intent);
 
+            StaticList.AccessData.clearStaticData();
             AuthService.changeSharedPreferences(false, "", getApplicationContext());
+
             this.finish();
 
             return true;
@@ -86,13 +89,12 @@ public class PrincipalActivity extends AppCompatActivity
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
         int id = item.getItemId();
-        Intent intent;
 
         if (id == R.id.nav_perfil) {
-            intent = new Intent(PrincipalActivity.this, DadosActivity.class);
+            Intent intent = new Intent(PrincipalActivity.this, DadosActivity.class);
             startActivity(intent);
         } else if (id == R.id.nav_animais) {
-            intent = new Intent(PrincipalActivity.this, AnimalActivity.class);
+            Intent intent = new Intent(PrincipalActivity.this, AnimalActivity.class);
             startActivity(intent);
         } else if (id == R.id.nav_inscritos) {
             //intent = new Intent(PrincipalActivity.this, InscritoActivity.class);
