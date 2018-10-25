@@ -28,7 +28,7 @@ public class AnimalService {
     private static final String DONO_ID = StaticList.AccessData.getDono().getId();
     private static final String ANIMAL_URL = "https://curious-badger-81660-dev-ed.my.salesforce.com/services/data/v43.0/sobjects/Animal__c";
     private static final String ANIMAL_BY_DONO_URL = "https://curious-badger-81660-dev-ed.my.salesforce.com/services/data/v43.0/query/?q=" +
-            "SELECT+Name,Sexo__c,Especie__c,Raca__c,Coloracao__c,Data_Nasc__c,Id+FROM+Animal__c+WHERE+Dono__c+=+'" + DONO_ID + "'";
+            "SELECT+Name,Sexo__c,Especie__c,Raca__c,Coloracao__c,Data_Nasc__c,Id+FROM+Animal__c+WHERE+Dono__c+=+'" + DONO_ID + "'+AND+IsDeleted+=+false";
 
     public static HashMap<String, String> addAnimal(Animal animal) throws Exception {
         HashMap<String, String> animalResponse = new HashMap<String, String>();

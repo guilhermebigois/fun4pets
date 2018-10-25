@@ -2,18 +2,15 @@ package com.fiap.guilhermebigois.fun4pets.activity;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
-import android.net.Uri;
 import android.os.AsyncTask;
+import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.Toast;
 
 import com.fiap.guilhermebigois.fun4pets.R;
@@ -21,16 +18,8 @@ import com.fiap.guilhermebigois.fun4pets.adapter.AnimalAdapter;
 import com.fiap.guilhermebigois.fun4pets.dao.StaticList;
 import com.fiap.guilhermebigois.fun4pets.model.Animal;
 import com.fiap.guilhermebigois.fun4pets.service.AnimalService;
-import com.fiap.guilhermebigois.fun4pets.service.AuthService;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
-
-import cc.cloudist.acplibrary.ACProgressConstant;
-import cc.cloudist.acplibrary.ACProgressFlower;
 
 public class AnimalActivity extends AppCompatActivity {
     private FloatingActionButton btnAddAnimal;

@@ -52,7 +52,6 @@
                     tools:layout_editor_absoluteY="0dp" />
 
                 <RadioButton
-                    android:id="@+id/animal_rdo_fem"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -79,7 +78,6 @@
                 tools:text="@tools:sample/date/ddmmyy" />
 
             <TextView
-                android:id="@+id/textView2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="ESPÉCIE" />
@@ -106,7 +104,6 @@
                 android:inputType="textPersonName" />
 
             <TextView
-                android:id="@+id/textView4"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="COLORAÇÃO" />

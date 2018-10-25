@@ -1,8 +1,8 @@
 package com.fiap.guilhermebigois.fun4pets.utility;
 
-import java.net.URI;
-
 import org.apache.http.client.methods.HttpEntityEnclosingRequestBase;
+
+import java.net.URI;
 
 public class HttpPatch extends HttpEntityEnclosingRequestBase {
     public final static String METHOD_NAME = "PATCH";

@@ -44,10 +44,13 @@
             android:theme="@style/FullscreenTheme" />
         <activity
             android:name=".activity.AnimalActivity"
-            android:label="Meus Pets">
-        </activity>
+            android:label="Meus Pets" />
         <activity
             android:name=".activity.AddAnimalActivity"
             android:label="Adicionar Pet" />
+        <activity
+            android:name=".DeleteActivity"
+            android:label="@string/title_activity_delete"></activity>
     </application>
+
 </manifest>

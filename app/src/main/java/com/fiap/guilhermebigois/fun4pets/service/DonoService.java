@@ -1,7 +1,7 @@
 package com.fiap.guilhermebigois.fun4pets.service;
 
-import com.fiap.guilhermebigois.fun4pets.utility.HttpPatch;
 import com.fiap.guilhermebigois.fun4pets.model.Dono;
+import com.fiap.guilhermebigois.fun4pets.utility.HttpPatch;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
